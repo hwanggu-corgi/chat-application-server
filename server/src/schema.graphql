@@ -1,0 +1,28 @@
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  username: String!
+}
+
+type Chat {
+    id: ID!
+    postedBy: User!
+    postedById: Int!
+    texts: String!
+}
+
+type Query {
+  chats: [Chat]!
+  users: [User!]!
+  user: User
+}
+
+type Mutation {
+  signup(username: String!, password: String!): AuthPayload
+  login(username: String!, password: String!): AuthPayload
+  post(texts: String!): Chat!
+}
