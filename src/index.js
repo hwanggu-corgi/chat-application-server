@@ -18,7 +18,7 @@ const resolvers = {
   Query,
   Mutation,
   Chat,
-//   Subscription
+  Subscription,
 };
 
 const server = new ApolloServer({

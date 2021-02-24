@@ -3,17 +3,16 @@ const jwt = require('jsonwebtoken');
 const { APP_SECRET } = require('../utils');
 
 async function post(parent, args, context) {
-    console.log("I am here");
-    console.log(args.texts);
     const { userId } = context;
-    const chat = context.prisma.chat.create({
+    const newChat = context.prisma.chat.create({
         data: {
           "postedBy": { connect: { id: userId } },
           "texts": args.texts
         }
     });
 
-    return chat
+    context.pubsub.publish("NEW_CHAT", newChat);
+    return newChat
 }
 
 async function signup(parent, args, context) {
