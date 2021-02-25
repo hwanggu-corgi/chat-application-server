@@ -31,4 +31,6 @@ type Mutation {
 
 type Subscription {
   newChat: Chat
+  newParticipant: User
+  removeParticipant: User
 }

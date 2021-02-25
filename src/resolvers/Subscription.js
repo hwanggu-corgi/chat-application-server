@@ -9,23 +9,23 @@ const newChat = {
   },
 }
 
-function newUserSubscribe(parent, args, context) {
-  return context.pubsub.asyncIterator("NEW_USER");
+function newParticipantSubscribe(parent, args, context) {
+  return context.pubsub.asyncIterator("NEW_PARTICIPANT");
 }
 
-const newUser = {
-  subscribe: newUserSubscribe,
+const newParticipant = {
+  subscribe: newParticipantSubscribe,
   resolve: payload => {
     return payload;
   },
 }
 
-function removeUserSubscribe(parent, args, context) {
-  return context.pubsub.asyncIterator("REMOVE_USER");
+function removeParticipantSubscribe(parent, args, context) {
+  return context.pubsub.asyncIterator("REMOVE_PARTICIPANT");
 }
 
-const removeUser = {
-  subscribe: removeUserSubscribe,
+const removeParticipant = {
+  subscribe: removeParticipantSubscribe,
   resolve: payload => {
     return payload;
   },
@@ -34,6 +34,6 @@ const removeUser = {
 
 module.exports = {
   newChat,
-  newUser,
-  removeUser,
+  newParticipant,
+  removeParticipant,
 }
