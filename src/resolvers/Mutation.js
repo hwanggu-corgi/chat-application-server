@@ -48,7 +48,7 @@ async function login(parent, args, context) {
       }
     });
 
-    context.pubsub.publish("NEW_PARTICIPANT", user);
+    // context.pubsub.publish("NEW_PARTICIPANT", user);
     return {
       token,
       user,
@@ -76,7 +76,7 @@ async function logout(parent, args, context) {
     }
   });
 
-  context.pubsub.publish("REMOVE_PARTICIPANT", user);
+  // context.pubsub.publish("REMOVE_PARTICIPANT", user);
   return user;
 }
 
