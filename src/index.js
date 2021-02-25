@@ -66,5 +66,3 @@ server
   .then(({ url }) =>
     console.log(`Server is running on ${url}`)
 );
-
-// .listen(process.env.PORT)
