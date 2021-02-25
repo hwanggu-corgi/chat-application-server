@@ -1,4 +1,4 @@
-const { ApolloServer, PubSub } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const { PrismaClient } = require('@prisma/client');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
@@ -56,6 +56,7 @@ const server = new ApolloServer({
     },
     onDisconnect: (webSocket, context) => {
       webSocket.close();
+      console.log('Websocket Disconnected')
     },
   }
 });
