@@ -37,7 +37,10 @@ const server = new ApolloServer({
           ? getUserId(req)
           : null
     };
-  }
+  },
+  onDisconnect: (webSocket, context) => {
+    webSocket.close();
+  },
 });
 
 server
