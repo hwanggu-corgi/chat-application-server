@@ -39,7 +39,7 @@ async function login(parent, args, context) {
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
-    const updateUser = await context.prisma.user.update({
+    await context.prisma.user.update({
       where: {
         id: user.id,
       },
@@ -48,7 +48,7 @@ async function login(parent, args, context) {
       }
     });
 
-    context.pubsub.publish("NEW_CHAT", newChat);
+    context.pubsub.publish("NEW_PARTICIPANT", user);
     return {
       token,
       user,
@@ -67,7 +67,7 @@ async function logout(parent, args, context) {
     return user;
   }
 
-  const updateUser = await context.prisma.user.update({
+  await context.prisma.user.update({
     where: {
       id: user.id,
     },
@@ -76,7 +76,8 @@ async function logout(parent, args, context) {
     }
   });
 
-  return updateUser;
+  context.pubsub.publish("REMOVE_PARTICIPANT", user);
+  return user;
 }
 
 module.exports = {
