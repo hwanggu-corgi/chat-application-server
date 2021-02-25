@@ -20,6 +20,7 @@ async function signup(parent, args, context) {
     const user = await context.prisma.user.create({ data: { ...args, password, loggedIn: true } })
     const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
+    context.pubsub.publish("NEW_PARTICIPANT", user);
     return {
       token,
       user,
