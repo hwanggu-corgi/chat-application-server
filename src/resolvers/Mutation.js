@@ -39,14 +39,14 @@ async function login(parent, args, context) {
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
-    const update = await context.prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        loggedIn: true
-      }
-    });
+    // const update = await context.prisma.user.update({
+    //   where: {
+    //     id: 6,
+    //   },
+    //   data: {
+    //     loggedIn: true
+    //   }
+    // });
 
     return {
       token,
