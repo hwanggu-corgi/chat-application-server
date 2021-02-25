@@ -24,7 +24,7 @@ type Query {
 type Mutation {
   signup(username: String!, password: String!): AuthPayload
   login(username: String!, password: String!): AuthPayload
-  logout: AuthPayload
+  logout: User
   post(texts: String!): Chat!
 }
 

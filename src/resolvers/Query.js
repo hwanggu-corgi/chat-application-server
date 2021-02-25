@@ -11,6 +11,7 @@ async function user(parent, args, context) {
   return context.prisma.user.findUnique({ where: { id: userId } });
 }
 
+
 module.exports = {
     chats,
     users,

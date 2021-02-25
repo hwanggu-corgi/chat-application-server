@@ -60,6 +60,7 @@ async function logout(parent, args, context) {
 
   if (!user) {
     throw new Error('No such user found')
+    return false;
   }
 
   const updateUser = await context.prisma.user.update({
@@ -73,7 +74,7 @@ async function logout(parent, args, context) {
 
   return {
     updateUser
-  }
+  };
 }
 
 module.exports = {
