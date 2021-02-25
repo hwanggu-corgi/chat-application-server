@@ -39,14 +39,6 @@ async function login(parent, args, context) {
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
-    if (user.loggedIn) {
-      console.log("I am here");
-      return {
-        token,
-        user
-      }
-    }
-
     const updateUser = await context.prisma.user.update({
       where: {
         id: user.id,
@@ -55,7 +47,8 @@ async function login(parent, args, context) {
         loggedIn: true
       }
     });
-    console.log("I am here 2");
+
+    context.pubsub.publish("NEW_CHAT", newChat);
     return {
       token,
       user,
