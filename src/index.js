@@ -1,4 +1,4 @@
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer, PubSub } = require('apollo-server');
 const { PrismaClient } = require('@prisma/client');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');

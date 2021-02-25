@@ -48,7 +48,7 @@ async function login(parent, args, context) {
       }
     });
 
-    // context.pubsub.publish("NEW_PARTICIPANT", user);
+    context.pubsub.publish("NEW_PARTICIPANT", user);
     return {
       token,
       user,
