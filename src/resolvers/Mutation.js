@@ -34,10 +34,19 @@ async function login(parent, args, context) {
 
     const valid = await bcrypt.compare(args.password, user.password)
     if (!valid) {
-      throw new Error('Invalid password')
+      throw new Error('Invalid password');
     }
 
-    const token = jwt.sign({ userId: user.id }, APP_SECRET)
+    const token = jwt.sign({ userId: user.id }, APP_SECRET);
+
+    const update = await context.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        loggedIn: true
+      }
+    });
 
     return {
       token,
