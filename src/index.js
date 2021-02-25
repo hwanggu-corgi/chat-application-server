@@ -38,9 +38,26 @@ const server = new ApolloServer({
           : null
     };
   },
-  onDisconnect: (webSocket, context) => {
-    webSocket.close();
-  },
+  subscriptions: {
+    onConnect: (connectionParams) => {
+      if (connectionParams.authToken) {
+        return {
+          prisma,
+          userId: getUserId(
+            null,
+            connectionParams.authToken
+          )
+        };
+      } else {
+        return {
+          prisma
+        };
+      }
+    },
+    onDisconnect: (webSocket, context) => {
+      webSocket.close();
+    },
+  }
 });
 
 server
