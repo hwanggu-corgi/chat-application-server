@@ -17,7 +17,7 @@ async function post(parent, args, context) {
 
 async function signup(parent, args, context) {
     const password = await bcrypt.hash(args.password, 10)
-    const user = await context.prisma.user.create({ data: { ...args, password } })
+    const user = await context.prisma.user.create({ data: { ...args, password, loggedIn: true } })
     const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
     return {
@@ -39,6 +39,13 @@ async function login(parent, args, context) {
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
+    if (user.loggedIn) {
+      return {
+        token,
+        user
+      }
+    }
+
     const updateUser = await context.prisma.user.update({
       where: {
         id: user.id,
@@ -54,32 +61,8 @@ async function login(parent, args, context) {
     }
 }
 
-async function logout(parent, args, context) {
-  const { userId } = context;
-  const user = await context.prisma.user.findUnique({ where: { id: userId } })
-
-  if (!user) {
-    throw new Error('No such user found')
-    return false;
-  }
-
-  const updateUser = await context.prisma.user.update({
-    where: {
-      id: user.id,
-    },
-    data: {
-      loggedIn: false
-    }
-  });
-
-  return {
-    updateUser
-  };
-}
-
 module.exports = {
     post,
     signup,
     login,
-    logout,
 }
