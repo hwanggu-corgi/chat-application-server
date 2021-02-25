@@ -18,7 +18,7 @@ type Chat {
 
 type Query {
   chats: [Chat]!
-  users: [User!]!
+  participants: [User!]!
   user: User
 }
 

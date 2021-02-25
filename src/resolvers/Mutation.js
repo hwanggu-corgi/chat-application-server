@@ -40,6 +40,7 @@ async function login(parent, args, context) {
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
     if (user.loggedIn) {
+      console.log("I am here");
       return {
         token,
         user
@@ -54,10 +55,10 @@ async function login(parent, args, context) {
         loggedIn: true
       }
     });
-
+    console.log("I am here 2");
     return {
       token,
-      updateUser,
+      user,
     }
 }
 
