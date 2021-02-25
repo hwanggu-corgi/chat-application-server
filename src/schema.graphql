@@ -6,6 +6,7 @@ type AuthPayload {
 type User {
   id: ID!
   username: String!
+  loggedIn: Boolean!
 }
 
 type Chat {
@@ -24,6 +25,7 @@ type Query {
 type Mutation {
   signup(username: String!, password: String!): AuthPayload
   login(username: String!, password: String!): AuthPayload
+  logout: User
   post(texts: String!): Chat!
 }
 

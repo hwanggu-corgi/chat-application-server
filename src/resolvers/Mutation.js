@@ -61,8 +61,33 @@ async function login(parent, args, context) {
     }
 }
 
+async function logout(parent, args, context) {
+  const { userId } = context;
+  const user = await context.prisma.user.findUnique({ where: { id: userId } })
+
+  if (!user) {
+    throw new Error('No such user found')
+  }
+
+  if (!user.loggedIn) {
+    return user;
+  }
+
+  const updateUser = await context.prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      loggedIn: false
+    }
+  });
+
+  return updateUser;
+}
+
 module.exports = {
     post,
     signup,
     login,
+    logout,
 }
