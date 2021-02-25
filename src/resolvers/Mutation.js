@@ -39,23 +39,46 @@ async function login(parent, args, context) {
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
-    // const update = await context.prisma.user.update({
-    //   where: {
-    //     id: 6,
-    //   },
-    //   data: {
-    //     loggedIn: true
-    //   }
-    // });
+    const updateUser = await context.prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        loggedIn: true
+      }
+    });
 
     return {
       token,
-      user,
+      updateUser,
     }
+}
+
+async function logout(parent, args, context) {
+  const { userId } = context;
+  const user = await context.prisma.user.findUnique({ where: { id: userId } })
+
+  if (!user) {
+    throw new Error('No such user found')
+  }
+
+  const updateUser = await context.prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      loggedIn: false
+    }
+  });
+
+  return {
+    updateUser
+  }
 }
 
 module.exports = {
     post,
     signup,
     login,
+    logout,
 }
