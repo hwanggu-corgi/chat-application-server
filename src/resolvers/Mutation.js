@@ -76,7 +76,7 @@ async function logout(parent, args, context) {
     }
   });
 
-  // context.pubsub.publish("REMOVE_PARTICIPANT", user);
+  context.pubsub.publish("REMOVE_PARTICIPANT", user);
   return user;
 }
 
