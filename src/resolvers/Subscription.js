@@ -9,16 +9,16 @@ const newChat = {
   },
 }
 
-// function newParticipantSubscribe(parent, args, context) {
-//   return context.pubsub.asyncIterator("NEW_PARTICIPANT");
-// }
+function newParticipantSubscribe(parent, args, context) {
+  return context.pubsub.asyncIterator("NEW_PARTICIPANT");
+}
 
-// const newParticipant = {
-//   subscribe: newParticipantSubscribe,
-//   resolve: payload => {
-//     return payload;
-//   },
-// }
+const newParticipant = {
+  subscribe: newParticipantSubscribe,
+  resolve: payload => {
+    return payload;
+  },
+}
 
 function removeParticipantSubscribe(parent, args, context) {
   return context.pubsub.asyncIterator("REMOVE_PARTICIPANT");
@@ -34,6 +34,6 @@ const removeParticipant = {
 
 module.exports = {
   newChat,
-  // newParticipant,
+  newParticipant,
   removeParticipant,
 }
